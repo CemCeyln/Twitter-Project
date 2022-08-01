@@ -3,14 +3,23 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <script>
-ProfilePictureUpload.onchange = evt => {
+/* ProfilePictureUpload.onchange = evt => {
     const [file] = ProfilePictureUpload.files
     console.log("a");
     if (file) {
-        preview.src = URL.createObjectURL(file)
+        $("[id='ProfilePicture']").attr("src", URL.createObjectURL(file));
     }
 }
 </script>
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                document.getElementById("<%=ProfilePicture.ClientID %>").setAttribute('src', src);
+              //$('.avatar').attr("src", URL.createObjectURL(src));
+            }
+        }
+    </script>
 <div class="container">
  <div class="row">
     <div class="col-lg-3 col-md-2"></div>
@@ -32,8 +41,8 @@ ProfilePictureUpload.onchange = evt => {
                     </div>
                     <div class="form-group">
                         <asp:Label runat="server" id="ProfilePictureLabel" class="form-control-label"></asp:Label>
-                        <asp:FileUpload id="ProfilePictureUpload" runat="server" style="color:#0DB8DE"></asp:FileUpload>
-                        <img id="preview" src="#"/>
+                        <asp:FileUpload id="ProfilePictureUpload" runat="server" style="color:#0DB8DE" onChange="showPreview(event)"></asp:FileUpload>
+                        <asp:Image ID="ProfilePicture" runat="server" class="avatar"/>
                     </div>
                     <div class="col-lg-12 loginbttm">
                         <div class="col-lg-6 login-btm login-text">

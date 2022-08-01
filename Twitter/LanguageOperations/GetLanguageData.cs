@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using DataAccessLayer.Model;
+using DataAccessLayer.Models;
 namespace Twitter.LanguageOperations
 {
     public class GetLanguageData

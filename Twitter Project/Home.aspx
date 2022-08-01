@@ -2,10 +2,10 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
-        <div class="row">
-            <p style="visibility: hidden" id="userId"><%#Eval("userId") %></p>
+        <div class="row">      
             <asp:Repeater ID="postRepeater" runat="server">
                 <ItemTemplate>
+                     <p style="visibility: hidden" id="postId"><%#Eval("post.postId") %></p>
                     <div class="col-lg-6 col-md-8 login-box" style="align-items: flex-start">
                         <div>
                             <img src='File/<%#Eval("profilePicture")%>' class="avatar">
@@ -38,28 +38,32 @@
                 likeCount = likes.split(" ");
                 var heartDiv = document.getElementById("heart");
                 var isContain = heartDiv.classList.contains("is-active");
+                var url = "";
                 if (isContain) {
                     likeCount[0]++;
                     document.getElementById("Likecount").innerHTML = likeCount[0] + " likes";
+                    url = '/WebService1.asmx/IncrementLikes';
                 }
                 else {
 
                     likeCount[0]--;
                     document.getElementById("Likecount").innerHTML = likeCount[0] + " likes";
+                    url = '/WebService1.asmx/DecrementLikes';
                 }
-                var userId = $("#userId").html();
+                var postId = $("#postId").html();
                 var userName = $("#userName").html();
                 var likeNumber = $("#Likecount").html();
                 $.ajax({
-                    type: "POST",
-                    url: "https://localhost:44332/User/IncrementLikes",
-                    data: "{First:" + UserUId + "}",
-                    contentType: "application/json; charset=utf-8",// What I am ing
+                    type: 'POST',
+                    url: url,
+                    data: '{postId:' + postId + '}',
+                    contentType: 'application/json; charset=utf-8',// What I am ing
                     dataType: "json", // What I am expecting
                     crossDomain: true,
                     success: function (data) {
                         $('#divSum2').html(data.d);
-                    }
+                    },
+                    error(dataer) { alert(dataer.d); }
                 });
             });
         });

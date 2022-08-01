@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using DataAccessLayer.Model;
+using DataAccessLayer.Models;
 using System.Data;
 using System.Data.Entity;
 using Twitter.Response;

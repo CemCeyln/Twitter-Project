@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace DataAccessLayer.Model
+namespace DataAccessLayer.Models
 {
     public partial class TwitterDBContext : DbContext
     {
@@ -19,8 +19,10 @@ namespace DataAccessLayer.Model
         {
         }
 
+        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Follower> Follower { get; set; }
         public virtual DbSet<Language> Language { get; set; }
+        public virtual DbSet<Like> Like { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<Resource> Resource { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -36,6 +38,36 @@ namespace DataAccessLayer.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.Property(e => e.CommentId).HasColumnName("commentId");
+
+                entity.Property(e => e.Comment1)
+                    .IsRequired()
+                    .HasColumnName("comment")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Date)
+                    .HasColumnName("date")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.PostId).HasColumnName("postId");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.PostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_Post");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_User");
+            });
+
             modelBuilder.Entity<Follower>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -67,6 +99,27 @@ namespace DataAccessLayer.Model
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Like>(entity =>
+            {
+                entity.Property(e => e.LikeId).HasColumnName("likeId");
+
+                entity.Property(e => e.LikedBy).HasColumnName("likedBy");
+
+                entity.Property(e => e.PostId).HasColumnName("postId");
+
+                entity.HasOne(d => d.LikedByNavigation)
+                    .WithMany(p => p.Like)
+                    .HasForeignKey(d => d.LikedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Likes_User");
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.Like)
+                    .HasForeignKey(d => d.PostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Likes_Post");
+            });
+
             modelBuilder.Entity<Post>(entity =>
             {
                 entity.Property(e => e.PostId).HasColumnName("postId");
@@ -82,6 +135,8 @@ namespace DataAccessLayer.Model
                 entity.Property(e => e.FilePath)
                     .HasColumnName("filePath")
                     .HasColumnType("text");
+
+                entity.Property(e => e.Likes).HasColumnName("likes");
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
 

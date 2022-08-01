@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +25,7 @@ namespace Twitter.UserOperations
                     GetUserInfoMessages response = new GetUserInfoMessages();
                     response.Name = user.Name;
                     response.Email = user.Email;
+                    response.ProfilePicture = user.Image;
                     return response;
                 }
             }

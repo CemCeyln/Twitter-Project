@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Models;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
@@ -22,10 +22,9 @@ namespace Twitter_Project
             postRepeater.DataBind();
         }
 
-        [WebMethod]
-        public static int  IncrementLikes(int userId)
+        protected void AddComment(object sender, EventArgs e)
         {
-            return 0;
+
         }
     }
 }

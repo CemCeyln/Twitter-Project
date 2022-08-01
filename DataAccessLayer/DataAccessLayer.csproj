@@ -160,12 +160,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Model\Follower.cs" />
-    <Compile Include="Model\Language.cs" />
-    <Compile Include="Model\Post.cs" />
-    <Compile Include="Model\Resource.cs" />
-    <Compile Include="Model\TwitterDBContext.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Follower.cs" />
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Resource.cs" />
+    <Compile Include="Models\TwitterDBContext.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

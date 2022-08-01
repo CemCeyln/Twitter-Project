@@ -5,14 +5,16 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace DataAccessLayer.Model
+namespace DataAccessLayer.Models
 {
     public partial class User
     {
         public User()
         {
+            Comment = new HashSet<Comment>();
             FollowerFollowedByNavigation = new HashSet<Follower>();
             FollowerUser = new HashSet<Follower>();
+            Like = new HashSet<Like>();
             Post = new HashSet<Post>();
         }
 
@@ -22,8 +24,10 @@ namespace DataAccessLayer.Model
         public string Name { get; set; }
         public string Image { get; set; }
 
+        public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Follower> FollowerFollowedByNavigation { get; set; }
         public virtual ICollection<Follower> FollowerUser { get; set; }
+        public virtual ICollection<Like> Like { get; set; }
         public virtual ICollection<Post> Post { get; set; }
     }
 }

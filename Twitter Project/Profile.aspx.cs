@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +16,16 @@ namespace Twitter_Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LanguageControl();
+            Session["Language"] = 1;
             GetUserInfoMessages user = GetUserInfo.Execute((int)Session["Language"]);
-            Email.Text = user.Email;
-            Name.Text = user.Name;
+            if (!Page.IsPostBack)
+            {               
+                Email.Text = user.Email;
+                Name.Text = user.Name;
+                ProfilePicture.ImageUrl = "/File/" + user.ProfilePicture;
+            }
+
+            LanguageControl();
         }
 
         void LanguageControl()
@@ -38,33 +44,33 @@ namespace Twitter_Project
 
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
-            string imagePath = "";
-            string extension = ".jpg";
+            UpdateUserRequest request = new UpdateUserRequest();
+            
             if(ProfilePictureUpload.HasFile)
             {
-
+                string imagePath = "";
+                string extension = ".jpg";
                 string savePath = Server.MapPath("/File/");
                 string fileName = System.Guid.NewGuid().ToString();
                 imagePath = savePath + fileName + extension;
 
                 ProfilePictureUpload.SaveAs(imagePath);
-                UpdateUserRequest request = new UpdateUserRequest();
-                request.Name = Name.Text;
-                request.Email = Email.Text;
-                request.Image = fileName + extension;
-                UpdateUserResponse response = UpdateUserTransaction.Execute(request);
-                if(response.Success)
-                {
-                    ErrorMessageLabel.ForeColor = System.Drawing.Color.Green;
-                    ErrorMessageLabel.Text = response.Message;
-                }
-                else
-                {
-                    ErrorMessageLabel.Text = response.Message;
-                }
+                             
+                request.Image = fileName + extension;            
                
             }
-
+            request.Name = Name.Text;
+            request.Email = Email.Text;
+            UpdateUserResponse response = UpdateUserTransaction.Execute(request);
+            if (response.Success)
+            {
+                ErrorMessageLabel.ForeColor = System.Drawing.Color.Green;
+                ErrorMessageLabel.Text = response.Message;
+            }
+            else
+            {
+                ErrorMessageLabel.Text = response.Message;
+            }
         }
 
     }

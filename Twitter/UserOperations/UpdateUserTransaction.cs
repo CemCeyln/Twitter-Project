@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Model;
+﻿using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +52,10 @@ namespace Twitter.UserOperations
                             {
                                 user.Email = request.Email;
                                 user.Name = request.Name;
-                                user.Image = request.Image;
+                                if(request.Image != null)
+                                {
+                                    user.Image = request.Image;
+                                }                      
                                 context.SaveChanges();
                                 dbTran.Commit();
                                 response.Success = true;
