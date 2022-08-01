@@ -5,7 +5,7 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace DataAccessLayer.Models
+namespace DataAccessLayer.Model
 {
     public partial class User
     {
@@ -20,6 +20,7 @@ namespace DataAccessLayer.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
+        public string Image { get; set; }
 
         public virtual ICollection<Follower> FollowerFollowedByNavigation { get; set; }
         public virtual ICollection<Follower> FollowerUser { get; set; }

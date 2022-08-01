@@ -39,6 +39,8 @@ namespace Twitter
             public static string PasswordAgainLabelTurkish = "Şifre (Tekrar)";
             public static string NameLabelEnglish = "Name Surname";
             public static string NameLabelTurkish = "İsim Soyisim";
+            public static string ProfilePictureLabelEnglish = "Profile Picture";
+            public static string ProfilePictureLabelTurkish = "Profil Fotoğrafı";
 
         }
 

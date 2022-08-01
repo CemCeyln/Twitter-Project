@@ -1,8 +1,10 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.Model;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Twitter;
@@ -18,6 +20,12 @@ namespace Twitter_Project
             var posts = GetPosts.Execute(General.UserIdAndLanguageId.UserId);
             postRepeater.DataSource = posts.OrderByDescending(x => x.post.CreatedDate);
             postRepeater.DataBind();
+        }
+
+        [WebMethod]
+        public static int  IncrementLikes(int userId)
+        {
+            return 0;
         }
     }
 }

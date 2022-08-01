@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,7 +23,6 @@ namespace Twitter.HomePageOperations
                 List<int> followedPeopleIdList = context.Follower.Where(x => x.FollowedBy == userId).Select(k => k.UserId).ToList();
                 List <User> followedPeople= context.User.Where(p => followedPeopleIdList.Contains(p.UserId)).ToList();
                 var allPosts = context.Post.Where(p=> followedPeopleIdList.Contains(p.UserId)).ToList();
-                //var allPosts = context.Post.Where(x => x.UserId == followedPeople.Select(p => p.UserId)).ToList();
                 List<PostMessages> postMessages = new List<PostMessages>();
                 
                 if(allPosts.Any() && followedPeople.Any())
@@ -38,7 +37,7 @@ namespace Twitter.HomePageOperations
                             PostMessages postMessage = new PostMessages();
                             postMessage.userId = followedPerson.UserId;
                             postMessage.userName = followedPerson.Name;
-   
+                            postMessage.profilePicture = followedPerson.Image;
                             postMessage.post = post;
                             postMessages.Add(postMessage);
                         }

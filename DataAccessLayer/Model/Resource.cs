@@ -5,18 +5,15 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace DataAccessLayer.Models
+namespace DataAccessLayer.Model
 {
-    public partial class Language
+    public partial class Resource
     {
-        public Language()
-        {
-            Resource = new HashSet<Resource>();
-        }
-
+        public int ResourceId { get; set; }
         public int LanguageId { get; set; }
-        public string Language1 { get; set; }
+        public string Name { get; set; }
+        public string Message { get; set; }
 
-        public virtual ICollection<Resource> Resource { get; set; }
+        public virtual Language Language { get; set; }
     }
 }

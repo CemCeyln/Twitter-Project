@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace DataAccessLayer.Models
+namespace DataAccessLayer.Model
 {
     public partial class TwitterDBContext : DbContext
     {
@@ -115,6 +115,10 @@ namespace DataAccessLayer.Models
                     .IsRequired()
                     .HasColumnName("email")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Image)
+                    .HasColumnName("image")
+                    .HasColumnType("text");
 
                 entity.Property(e => e.Name)
                     .IsRequired()

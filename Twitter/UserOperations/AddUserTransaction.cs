@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using DataAccessLayer.Models;
+using DataAccessLayer.Model;
 using System.Data;
 using System.Data.Entity;
 using Twitter.Response;
@@ -59,9 +59,9 @@ namespace Twitter.UserOperations
                     context.User.Add(newUser);
                     context.SaveChanges();
                     dbTran.Commit();
-                    response.Success = true;
-                    response.Message = "Succes";
                     dbTran.Dispose();
+                    response.Success = true;
+                    response.Message = "Succes";                
                     return response;
                 }
                 catch (Exception ex)
@@ -69,7 +69,7 @@ namespace Twitter.UserOperations
                     dbTran.Rollback();
                     response.Message = ResourcesTransaction.GetLoginError().Message;
                     response.Success = false;
-                }
+                }            
                 return response;
             }
 

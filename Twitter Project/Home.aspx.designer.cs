@@ -22,14 +22,5 @@ namespace Twitter_Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater postRepeater;
-
-        /// <summary>
-        /// PostOwnerLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PostOwnerLabel;
     }
 }
