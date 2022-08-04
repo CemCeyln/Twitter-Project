@@ -124,9 +124,12 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Enum\General.cs" />
+    <Compile Include="HomePageOperations\AddCommentTransaction.cs" />
+    <Compile Include="HomePageOperations\GetComments.cs" />
     <Compile Include="HomePageOperations\GetPosts.cs" />
     <Compile Include="LanguageOperations\LanguageMessages.cs" />
     <Compile Include="LanguageOperations\GetLanguageData.cs" />
+    <Compile Include="Messages\CommentMessages.cs" />
     <Compile Include="Messages\GetUserInfoMessages.cs" />
     <Compile Include="Messages\PostMessages.cs" />
     <Compile Include="Messages\UpdateUserMessages.cs" />
