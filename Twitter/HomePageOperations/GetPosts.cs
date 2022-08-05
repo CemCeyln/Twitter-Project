@@ -47,5 +47,30 @@ namespace Twitter.HomePageOperations
                 return null;
             }
         }
+
+        public static List<PostMessages> GetOwnPosts(int userId)
+        {
+            List<PostMessages> postMessages = new List<PostMessages>();
+            using (var context = new TwitterDBContext())
+            {
+                var posts = context.Post.Where(p => userId == p.UserId).ToList();
+                var user = context.User.FirstOrDefault(x => x.UserId == userId);
+                if(posts.Any())
+                {
+                    foreach (var post in posts)
+                    {
+                        PostMessages postMessage = new PostMessages();
+                        postMessage.userId = user.UserId;
+                        postMessage.userName = user.Name;
+                        postMessage.profilePicture = user.Image;
+                        postMessage.post = post;
+                        postMessages.Add(postMessage);
+                    }
+                    return postMessages;
+                }
+                
+            }
+            return null;
+        }
     }
 }

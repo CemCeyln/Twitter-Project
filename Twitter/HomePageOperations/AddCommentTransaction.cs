@@ -20,18 +20,20 @@ namespace Twitter.HomePageOperations
                 {
                     response.Success = true;
                     response.Message = "Succes";
+                    return response;
 ;                }
                 else
                 {
                     response.Success = false;
                     response.Message = "There is no such post";
+                    return response;
                 }
             }
             return null;
         }
         public static AddCommentResponse Execute(AddCommentRequest request)
         {
-            var response = Validate(request.userId);
+            var response = Validate(request.postId);
             if(!response.Success)
             {
                 return response;

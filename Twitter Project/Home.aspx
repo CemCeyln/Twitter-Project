@@ -1,14 +1,13 @@
 ﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Twitter_Project.Home" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:TextBox ID="postIdBox" runat="server" style="visibility:hidden"></asp:TextBox>
     <div class="container">
         <div class="row">
-            <asp:Repeater ID="postRepeater" runat="server" OnItemDataBound="PostRepeaterItemDataBound">
+            <asp:Repeater ID="postRepeater" runat="server" OnItemDataBound="PostRepeaterItemDataBound" OnItemCommand="PostRepeaterItemCommand">
                 <ItemTemplate>             
                     <div class="col-lg-6 col-md-8 login-box margin-left" style="align-items: flex-start">
                         <div>
-                            <asp:Label runat="server" ID="postId" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("post.postId") %>'><</asp:Label>
+                            <asp:Label runat="server" ID="postIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("post.postId") %>'><</asp:Label>
                             <img src='File/<%#Eval("profilePicture")%>' class="avatar">
                             <asp:Label runat="server" ID="userName" class="form-control-label" Style="font-size: 20px; float: left; padding-left: 5px; padding-top: 20px" Text='<%#Eval("userName") %>'><</asp:Label>
                             <p style="float:right; color:whitesmoke"><%#Eval("post.createdDate").ToString() %></p>
@@ -28,17 +27,15 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 row" style="box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); color: whitesmoke">
-                                <form>
                                     <h3 class="pull-left" style="margin-left: 10px">New Comment</h3>
                                     <div class="col-lg-6 login-btm login-button">
-                                        <asp:TextBox ID="CommentBox" runat="server" TextMode="MultiLine" class="form-control" Style="background-color: #1A2226; color: whitesmoke; border-color: #0DB8DE; margin-left: 5px"></asp:TextBox>
-                                        <asp:Button ID="CommentButton" runat="server" Text="Submit" class="btn btn-outline-primary commentButtonClass" Style="line-height: 0" postIdTutucu='<%#Eval("post.postId") %>' OnClick="RegisterButton_Click" />
+                                        <asp:TextBox ID="CommentBox"  runat="server" TextMode="MultiLine" class="form-control" Style="background-color: #1A2226; color: whitesmoke; border-color: #0DB8DE; margin-left: 5px"></asp:TextBox>
+                                        <asp:Button ID="CommentButton" runat="server" Text="Submit" class="btn btn-outline-primary" Style="line-height: 0" />
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                                         </div>
                                     </div>
-                                </form>
                                 <asp:Label style="font-size:24px; color:whitesmoke; width:10ch;" ID="commentCountLabel" runat="server"></asp:Label>
 
                                 <asp:Repeater runat="server" ID="commentRepeater">
@@ -111,16 +108,6 @@
 
                 });
             }
-
-        $(document).ready(function () {
-
-            $(".commentButtonClass").click(function () {
-                document.getElementById('<%=postIdBox.ClientID %>').value = $(this).attr("postIdTutucu");
-
-            });
-        });
-
-
     </script>
 
 </asp:Content>

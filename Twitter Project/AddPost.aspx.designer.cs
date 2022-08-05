@@ -33,31 +33,40 @@ namespace Twitter_Project
         protected global::System.Web.UI.WebControls.Label DescriptionLabel;
 
         /// <summary>
-        /// Description control.
+        /// DescriptionTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Description;
+        protected global::System.Web.UI.WebControls.TextBox DescriptionTextBox;
 
         /// <summary>
-        /// PostPictureLabel control.
+        /// ProfilePictureLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PostPictureLabel;
+        protected global::System.Web.UI.WebControls.Label ProfilePictureLabel;
 
         /// <summary>
-        /// PostsPictureUpload control.
+        /// ProfilePictureUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload PostsPictureUpload;
+        protected global::System.Web.UI.WebControls.FileUpload ProfilePictureUpload;
+
+        /// <summary>
+        /// PostPicture control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image PostPicture;
 
         /// <summary>
         /// ErrorMessageLabel control.
@@ -69,12 +78,12 @@ namespace Twitter_Project
         protected global::System.Web.UI.WebControls.Label ErrorMessageLabel;
 
         /// <summary>
-        /// UpdateButton control.
+        /// ShareButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button UpdateButton;
+        protected global::System.Web.UI.WebControls.Button ShareButton;
     }
 }

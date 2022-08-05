@@ -20,20 +20,19 @@ namespace Twitter_Project
         {
             if (!IsPostBack)
             {
-                General.UserIdAndLanguageId.UserId = 1;
+                General.UserIdAndLanguageId.UserId = 2;
                 var posts = GetPosts.Execute(General.UserIdAndLanguageId.UserId);
                 postRepeater.DataSource = posts.OrderByDescending(x => x.post.CreatedDate);
                 postRepeater.DataBind();
             }
 
-        }
-
+        }        
         protected void PostRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 Repeater childRepeater = (Repeater)e.Item.FindControl("commentRepeater");
-                var postId = ((Label)e.Item.FindControl("postId")).Text;
+                var postId = ((Label)e.Item.FindControl("postIdLabel")).Text;
                 var comments = GetComments.Execute(Int32.Parse(postId));
                 childRepeater.DataSource = comments.OrderByDescending(x => x.comment.Date);
                 childRepeater.DataBind();
@@ -47,19 +46,20 @@ namespace Twitter_Project
                 }
             }
         }
-
-
-
-        protected void RegisterButton_Click(object sender, EventArgs e)
+        protected void PostRepeaterItemCommand(object sender, RepeaterCommandEventArgs e)
         {
-
-            var postId = postIdBox.Text;
-            var userId = General.UserIdAndLanguageId.UserId;
-            var request = new AddCommentRequest();
-            request.userId = userId;
-            request.postId = Int32.Parse(postId);
-            //request.commentBody = CommentBox.Text;
-            AddCommentTransaction.Execute(request);
+            TextBox commentBox = e.Item.FindControl("CommentBox") as TextBox;
+            if (commentBox.Text != null)
+            {
+                Label postIdLabel = e.Item.FindControl("postIdLabel") as Label;
+                var postId = postIdLabel.Text;
+                var userId = General.UserIdAndLanguageId.UserId;
+                var request = new AddCommentRequest();
+                request.userId = userId;
+                request.postId = Int32.Parse(postId);
+                request.commentBody = commentBox.Text;
+                AddCommentTransaction.Execute(request);
+                Response.Redirect("Home");            }
         }
     }
 }

@@ -125,6 +125,8 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Enum\General.cs" />
     <Compile Include="HomePageOperations\AddCommentTransaction.cs" />
+    <Compile Include="HomePageOperations\AddPost.cs" />
+    <Compile Include="HomePageOperations\AddPostTransaction.cs" />
     <Compile Include="HomePageOperations\GetComments.cs" />
     <Compile Include="HomePageOperations\GetPosts.cs" />
     <Compile Include="LanguageOperations\LanguageMessages.cs" />
