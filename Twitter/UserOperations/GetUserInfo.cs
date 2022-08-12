@@ -26,6 +26,8 @@ namespace Twitter.UserOperations
                     response.Name = user.Name;
                     response.Email = user.Email;
                     response.ProfilePicture = user.Image;
+                    response.TotalFollowers = user.TotalFollower;
+                    response.TotalPost = user.TotalPost;
                     return response;
                 }
             }

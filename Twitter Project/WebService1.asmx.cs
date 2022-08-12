@@ -79,5 +79,61 @@ namespace Twitter_Project
                 }                 
             }
         }
+        [WebMethod]
+        public void IncrementCommentLikes(int commentId)
+        {
+            using (var context = new TwitterDBContext())
+            {
+                using (var dbTran = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        Comment comment = context.Comment.FirstOrDefault(x => x.CommentId == commentId);
+                        comment.LikeCount = comment.LikeCount + 1;
+                        CommentLike newLike = new CommentLike();
+                        newLike.CommentId = commentId;
+                        newLike.LikedBy = General.UserIdAndLanguageId.UserId;
+                        context.CommentLike.Add(newLike);
+                        context.SaveChanges();
+                        dbTran.Commit();
+                    }
+                    catch
+                    {
+                        dbTran.Rollback();
+                    }
+                }
+            }
+        }
+        [WebMethod]
+        public void DecrementCommentLikes(int commentId)
+        {
+            using (var context = new TwitterDBContext())
+            {
+                using (var dbTran = context.Database.BeginTransaction())
+                {
+                    Comment comment = context.Comment.FirstOrDefault(x => x.CommentId == commentId);
+                    if (comment.LikeCount != 0)
+                    {
+                        try
+                        {
+                            comment.LikeCount = comment.LikeCount - 1;
+                            var user = context.User.FirstOrDefault(x => x.UserId == General.UserIdAndLanguageId.UserId);
+                            var commentLike = context.CommentLike.FirstOrDefault(x => x.CommentId == commentId && x.LikedBy == user.UserId);
+                            if(commentLike != null)
+                            {
+                                context.CommentLike.Remove(commentLike);
+                            }
+                            context.SaveChanges();
+                            dbTran.Commit();
+                        }
+                        catch
+                        {
+                            dbTran.Rollback();
+                        }
+                    
+                    }
+                }
+            }
+        }
     }
 }

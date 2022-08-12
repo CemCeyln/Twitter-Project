@@ -11,25 +11,34 @@ namespace Twitter_Project
 {
 
 
-    public partial class SiteMaster
+    public partial class Messages
     {
 
         /// <summary>
-        /// searchBox control.
+        /// profileImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchBox;
+        protected global::System.Web.UI.HtmlControls.HtmlImage profileImage;
 
         /// <summary>
-        /// MainContent control.
+        /// nameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Label nameLabel;
+
+        /// <summary>
+        /// chatRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater chatRepeater;
     }
 }

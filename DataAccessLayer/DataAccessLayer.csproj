@@ -160,7 +160,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Models\Chat.cs" />
+    <Compile Include="Models\ChatMessages.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentLike.cs" />
     <Compile Include="Models\Follower.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Like.cs" />

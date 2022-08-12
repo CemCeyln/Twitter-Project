@@ -11,7 +11,12 @@ namespace DataAccessLayer.Models
     {
         public User()
         {
+            ChatMessagesReceiverNavigation = new HashSet<ChatMessages>();
+            ChatMessagesSenderNavigation = new HashSet<ChatMessages>();
+            ChatUser1Navigation = new HashSet<Chat>();
+            ChatUser2Navigation = new HashSet<Chat>();
             Comment = new HashSet<Comment>();
+            CommentLike = new HashSet<CommentLike>();
             FollowerFollowedByNavigation = new HashSet<Follower>();
             FollowerUser = new HashSet<Follower>();
             Like = new HashSet<Like>();
@@ -23,8 +28,15 @@ namespace DataAccessLayer.Models
         public string Password { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
+        public int TotalFollower { get; set; }
+        public int TotalPost { get; set; }
 
+        public virtual ICollection<ChatMessages> ChatMessagesReceiverNavigation { get; set; }
+        public virtual ICollection<ChatMessages> ChatMessagesSenderNavigation { get; set; }
+        public virtual ICollection<Chat> ChatUser1Navigation { get; set; }
+        public virtual ICollection<Chat> ChatUser2Navigation { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<CommentLike> CommentLike { get; set; }
         public virtual ICollection<Follower> FollowerFollowedByNavigation { get; set; }
         public virtual ICollection<Follower> FollowerUser { get; set; }
         public virtual ICollection<Like> Like { get; set; }

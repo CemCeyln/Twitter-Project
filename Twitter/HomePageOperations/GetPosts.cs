@@ -48,7 +48,7 @@ namespace Twitter.HomePageOperations
             }
         }
 
-        public static List<PostMessages> GetOwnPosts(int userId)
+        public static List<PostMessages> GetSpecificUsersPosts(int userId)
         {
             List<PostMessages> postMessages = new List<PostMessages>();
             using (var context = new TwitterDBContext())

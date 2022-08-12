@@ -19,7 +19,10 @@ namespace DataAccessLayer.Models
         {
         }
 
+        public virtual DbSet<Chat> Chat { get; set; }
+        public virtual DbSet<ChatMessages> ChatMessages { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<CommentLike> CommentLike { get; set; }
         public virtual DbSet<Follower> Follower { get; set; }
         public virtual DbSet<Language> Language { get; set; }
         public virtual DbSet<Like> Like { get; set; }
@@ -38,6 +41,71 @@ namespace DataAccessLayer.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Chat>(entity =>
+            {
+                entity.Property(e => e.ChatId).HasColumnName("chatId");
+
+                entity.Property(e => e.LastMessage).HasColumnName("lastMessage");
+
+                entity.Property(e => e.LastUpdate)
+                    .HasColumnName("lastUpdate")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.User1).HasColumnName("user1");
+
+                entity.Property(e => e.User2).HasColumnName("user2");
+
+                entity.HasOne(d => d.LastMessageNavigation)
+                    .WithMany(p => p.Chat)
+                    .HasForeignKey(d => d.LastMessage)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Chat_ChatMessages");
+
+                entity.HasOne(d => d.User1Navigation)
+                    .WithMany(p => p.ChatUser1Navigation)
+                    .HasForeignKey(d => d.User1)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Chat_User");
+
+                entity.HasOne(d => d.User2Navigation)
+                    .WithMany(p => p.ChatUser2Navigation)
+                    .HasForeignKey(d => d.User2)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Chat_User1");
+            });
+
+            modelBuilder.Entity<ChatMessages>(entity =>
+            {
+                entity.HasKey(e => e.MessageId);
+
+                entity.Property(e => e.MessageId).HasColumnName("messageId");
+
+                entity.Property(e => e.DateTime)
+                    .HasColumnName("dateTime")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Message)
+                    .IsRequired()
+                    .HasColumnName("message")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Receiver).HasColumnName("receiver");
+
+                entity.Property(e => e.Sender).HasColumnName("sender");
+
+                entity.HasOne(d => d.ReceiverNavigation)
+                    .WithMany(p => p.ChatMessagesReceiverNavigation)
+                    .HasForeignKey(d => d.Receiver)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ChatMessages_User1");
+
+                entity.HasOne(d => d.SenderNavigation)
+                    .WithMany(p => p.ChatMessagesSenderNavigation)
+                    .HasForeignKey(d => d.Sender)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ChatMessages_User");
+            });
+
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.Property(e => e.CommentId).HasColumnName("commentId");
@@ -50,6 +118,8 @@ namespace DataAccessLayer.Models
                 entity.Property(e => e.Date)
                     .HasColumnName("date")
                     .HasColumnType("date");
+
+                entity.Property(e => e.LikeCount).HasColumnName("likeCount");
 
                 entity.Property(e => e.PostId).HasColumnName("postId");
 
@@ -66,6 +136,27 @@ namespace DataAccessLayer.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Comment_User");
+            });
+
+            modelBuilder.Entity<CommentLike>(entity =>
+            {
+                entity.Property(e => e.CommentLikeId).HasColumnName("commentLikeId");
+
+                entity.Property(e => e.CommentId).HasColumnName("commentId");
+
+                entity.Property(e => e.LikedBy).HasColumnName("likedBy");
+
+                entity.HasOne(d => d.Comment)
+                    .WithMany(p => p.CommentLike)
+                    .HasForeignKey(d => d.CommentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CommentLike_Comment");
+
+                entity.HasOne(d => d.LikedByNavigation)
+                    .WithMany(p => p.CommentLike)
+                    .HasForeignKey(d => d.LikedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CommentLike_User");
             });
 
             modelBuilder.Entity<Follower>(entity =>

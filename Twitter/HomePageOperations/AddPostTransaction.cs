@@ -49,7 +49,10 @@ namespace Twitter.HomePageOperations
                             newPost.FilePath = request.FilePath;
                             newPost.Description = request.Description;
                             newPost.CreatedDate = DateTime.Now;
+                            newPost.Likes = 0;
                             context.Post.Add(newPost);
+                            var user = context.User.FirstOrDefault(x => x.UserId == request.UserId);
+                            user.TotalPost = user.TotalPost + 1;
                             context.SaveChanges();
                             dbTran.Commit();
                         }

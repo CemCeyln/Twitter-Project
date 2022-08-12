@@ -8,8 +8,9 @@
                     <div class="col-lg-6 col-md-8 login-box margin-left" style="align-items: flex-start">
                         <div>
                             <asp:Label runat="server" ID="postIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("post.postId") %>'><</asp:Label>
+                            <asp:Label runat="server" ID="userIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("userId") %>'><</asp:Label>
                             <img src='File/<%#Eval("profilePicture")%>' class="avatar">
-                            <asp:Label runat="server" ID="userName" class="form-control-label" Style="font-size: 20px; float: left; padding-left: 5px; padding-top: 20px" Text='<%#Eval("userName") %>'><</asp:Label>
+                            <asp:LinkButton runat="server" CommandName="Profile" CssClass="form-control-label nameLink"><%#Eval("userName") %></asp:LinkButton>
                             <p style="float:right; color:whitesmoke"><%#Eval("post.createdDate").ToString() %></p>
                         </div>
                         <br />
@@ -30,7 +31,7 @@
                                     <h3 class="pull-left" style="margin-left: 10px">New Comment</h3>
                                     <div class="col-lg-6 login-btm login-button">
                                         <asp:TextBox ID="CommentBox"  runat="server" TextMode="MultiLine" class="form-control" Style="background-color: #1A2226; color: whitesmoke; border-color: #0DB8DE; margin-left: 5px"></asp:TextBox>
-                                        <asp:Button ID="CommentButton" runat="server" Text="Submit" class="btn btn-outline-primary" Style="line-height: 0" />
+                                        <asp:Button ID="CommentButton" CommandName="Comment" runat="server" Text="Submit" class="btn btn-outline-primary" Style="line-height: 0" />
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-9 col-lg-10">
@@ -38,26 +39,31 @@
                                     </div>
                                 <asp:Label style="font-size:24px; color:whitesmoke; width:10ch;" ID="commentCountLabel" runat="server"></asp:Label>
 
-                                <asp:Repeater runat="server" ID="commentRepeater">
+                                <asp:Repeater runat="server" ID="commentRepeater" OnItemCommand="CommentRepeaterItemCommand">
                                     <ItemTemplate>
 
 
                                         <!-- COMMENT START -->
                                         <div class="media" style="color: whitesmoke">
                                             <a class="pull-left" href="#">
+                                                <asp:Label runat="server" ID="commentUserIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("commentUserId") %>'><</asp:Label>
                                                 <img class="avatar" style="margin-top: 0px" src='File/<%#Eval("commentProfilePicture") %>' alt=""></a>
                                             <div class="media-body">
-                                                <h4 class="media-heading" style="float: left; margin-top: 10px; text-decoration: underline"><%#Eval("commentUserName") %></h4>
+                                                <asp:LinkButton runat="server" CssClass="media-heading commentNameLink"><%#Eval("commentUserName") %></asp:LinkButton>
+                                                <br />
                                                 <br />
                                                 <br />
                                                 <p style="float:left"><%#Eval("comment.comment1") %></p>
+                                                <br />
                                                 <br />
                                                 <ul class="list-unstyled list-inline media-detail pull-left">
                                                     <li><i class="fa fa-calendar"></i><%#Eval("comment.Date").ToString()%></li>
                                                 </ul>
                                                 <ul class="list-unstyled list-inline media-detail pull-right">
-                                                    <li class=""><a href="">Like</a></li>
-                                                    <li class=""><a href="">Reply</a></li>
+                                                    <li id="commentLikeCount<%#Eval("comment.commentId")%>"><%#Eval("comment.likeCount")%> likes</li>
+                                                    <br />
+                                                    <li><div class="heart" id="heart-comment<%#Eval("comment.commentId") %>" onclick="commentLikes('<%#Eval("comment.commentId") %>')"></li>
+                                                    
                                                 </ul>
                                             </div>
                                         </div>
@@ -75,7 +81,6 @@
         </div>
     </div>
     <script>
-
             function likes(postID)
             {
                 $('#heart' + postID).toggleClass("is-active");
@@ -90,7 +95,6 @@
                     url = '/WebService1.asmx/IncrementLikes';
                 }
                 else {
-
                     likeCount[0]--;
                     document.getElementById("Likecount" + postID).innerHTML = likeCount[0] + " likes";
                     url = '/WebService1.asmx/DecrementLikes';
@@ -99,8 +103,8 @@
                     type: 'POST',
                     url: url,
                     data: '{postId:' + postID + '}',
-                    contentType: 'application/json; charset=utf-8',// What I am ing
-                    dataType: "json", // What I am expecting
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
                     crossDomain: true,
                     success: function (data) {
                         $('#divSum2').html(data.d);
@@ -108,6 +112,37 @@
 
                 });
             }
+        function commentLikes(commentId) {
+            $('#heart-comment' + commentId).toggleClass("is-active");
+            var commentLikes = $("#commentLikeCount" + commentId).html();
+            commentLikeCount = commentLikes.split(" ");
+            var commentHeartDiv = document.getElementById('heart-comment' + commentId);
+            var isContainActive = commentHeartDiv.classList.contains("is-active");
+            var url = "";
+            if (isContainActive) {
+                commentLikeCount[0]++;
+                document.getElementById("commentLikeCount" + commentId).innerHTML = commentLikeCount[0] + " likes";
+                url = 'WebService1.asmx/IncrementCommentLikes';
+            }
+            else {
+                commentLikeCount[0]--;
+                document.getElementById("commentLikeCount" + commentId).innerHTML = commentLikeCount[0] + " likes";
+            }
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: '{commentId:' + commentId + '}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                crossDomain: true,
+                success: function (data) {
+                    $('#divSum2').html(data.d);
+                },
+
+            });
+
+        }
+
     </script>
 
 </asp:Content>

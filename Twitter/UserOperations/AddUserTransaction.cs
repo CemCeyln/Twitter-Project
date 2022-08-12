@@ -59,17 +59,18 @@ namespace Twitter.UserOperations
                     context.User.Add(newUser);
                     context.SaveChanges();
                     dbTran.Commit();
-                    dbTran.Dispose();
                     response.Success = true;
-                    response.Message = "Succes";                
+                    response.Message = "Succes";
+                    dbTran.Dispose();
                     return response;
                 }
-                catch (Exception ex)
+                catch
                 {
                     dbTran.Rollback();
                     response.Message = ResourcesTransaction.GetLoginError().Message;
                     response.Success = false;
-                }            
+                }
+                dbTran.Dispose();
                 return response;
             }
 

@@ -29,7 +29,6 @@ namespace Twitter.HomePageOperations
                     return response;
                 }
             }
-            return null;
         }
         public static AddCommentResponse Execute(AddCommentRequest request)
         {
@@ -51,6 +50,7 @@ namespace Twitter.HomePageOperations
                             newComment.Date = DateTime.Now;
                             newComment.UserId = request.userId;
                             newComment.PostId = request.postId;
+                            newComment.LikeCount = 0;
                             context.Comment.Add(newComment);
                             context.SaveChanges();
                             dbTran.Commit();

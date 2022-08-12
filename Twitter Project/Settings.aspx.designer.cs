@@ -11,88 +11,88 @@ namespace Twitter_Project
 {
 
 
-    public partial class Profile
+    public partial class Settings
     {
 
         /// <summary>
-        /// profilePicture control.
+        /// NameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage profilePicture;
+        protected global::System.Web.UI.WebControls.Label NameLabel;
 
         /// <summary>
-        /// followButton control.
+        /// Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button followButton;
+        protected global::System.Web.UI.WebControls.TextBox Name;
 
         /// <summary>
-        /// messageButton control.
+        /// EmailLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button messageButton;
+        protected global::System.Web.UI.WebControls.Label EmailLabel;
 
         /// <summary>
-        /// nameLabel control.
+        /// Email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label nameLabel;
+        protected global::System.Web.UI.WebControls.TextBox Email;
 
         /// <summary>
-        /// emailLabel control.
+        /// ProfilePictureLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label emailLabel;
+        protected global::System.Web.UI.WebControls.Label ProfilePictureLabel;
 
         /// <summary>
-        /// totalPosts control.
+        /// ProfilePictureUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label totalPosts;
+        protected global::System.Web.UI.WebControls.FileUpload ProfilePictureUpload;
 
         /// <summary>
-        /// totalFollowers control.
+        /// ProfilePicture control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label totalFollowers;
+        protected global::System.Web.UI.WebControls.Image ProfilePicture;
 
         /// <summary>
-        /// postNameLabel control.
+        /// ErrorMessageLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label postNameLabel;
+        protected global::System.Web.UI.WebControls.Label ErrorMessageLabel;
 
         /// <summary>
-        /// postRepeater control.
+        /// UpdateButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater postRepeater;
+        protected global::System.Web.UI.WebControls.Button UpdateButton;
     }
 }

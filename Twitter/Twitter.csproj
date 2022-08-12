@@ -123,6 +123,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DirectMessages\GetChats.cs" />
+    <Compile Include="DirectMessages\GetDirectMessages.cs" />
     <Compile Include="Enum\General.cs" />
     <Compile Include="HomePageOperations\AddCommentTransaction.cs" />
     <Compile Include="HomePageOperations\AddPost.cs" />
@@ -131,17 +133,23 @@
     <Compile Include="HomePageOperations\GetPosts.cs" />
     <Compile Include="LanguageOperations\LanguageMessages.cs" />
     <Compile Include="LanguageOperations\GetLanguageData.cs" />
+    <Compile Include="Messages\ChatMessages.cs" />
     <Compile Include="Messages\CommentMessages.cs" />
+    <Compile Include="Messages\DirectMesMessages.cs" />
+    <Compile Include="Messages\FollowerMessages.cs" />
     <Compile Include="Messages\GetUserInfoMessages.cs" />
     <Compile Include="Messages\PostMessages.cs" />
+    <Compile Include="Messages\SearchUserMessages.cs" />
     <Compile Include="Messages\UpdateUserMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Messages\ResponseMessage.cs" />
     <Compile Include="Messages\AddUserMessages.cs" />
     <Compile Include="Resources\ResourcesTransaction.cs" />
+    <Compile Include="UserOperations\AddOrRemoveFollowerTransaction.cs" />
     <Compile Include="UserOperations\AddUserTransaction.cs" />
     <Compile Include="Messages\LoginMessages.cs" />
     <Compile Include="UserOperations\GetUserInfo.cs" />
+    <Compile Include="UserOperations\SearchUser.cs" />
     <Compile Include="UserOperations\UpdateUserTransaction.cs" />
     <Compile Include="UserOperations\UserLoginTransaction.cs" />
   </ItemGroup>

@@ -56,9 +56,14 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/Profile">My Profile</a></li>
+                        <li><asp:LinkButton runat="server" OnClick="SetSession">My Profile</asp:LinkButton></li>
                         <li><a runat="server" href="~/AddPost">Share a Post</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <li><a runat="server" href="~/Settings">Settings</a></li>
+                        <li><a runat="server" href="~/Messages">Messages</a></li>
+                        <li style="float:right; margin-top:15px; left:75%">
+                            <asp:TextBox runat="server" ID=searchBox placeholder="Search a user"></asp:TextBox>
+                            <asp:Button runat="server" CssClass="btn btn-outline-primary" style="line-height:0" OnClick="SearchUser_Click" Text="Search"/>
+                        </li>
                     </ul>
                 </div>
             </div>
