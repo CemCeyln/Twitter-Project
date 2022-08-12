@@ -18,7 +18,7 @@ namespace Twitter_Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            General.UserIdAndLanguageId.UserId = 2;
+            General.UserIdAndLanguageId.UserId = 1;
             if (!IsPostBack)
             {        
                 var posts = GetPosts.Execute(General.UserIdAndLanguageId.UserId);
@@ -28,7 +28,6 @@ namespace Twitter_Project
                     postRepeater.DataBind();
                 }              
             }
-
         }        
         protected void PostRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -49,7 +48,6 @@ namespace Twitter_Project
                 }
             }
         }
-
         protected void SetSession(int userId)
         {
             Session["ProfileId"] = userId;
@@ -80,15 +78,37 @@ namespace Twitter_Project
                 Response.Redirect("Profile");
             }
         }
-
         protected void CommentRepeaterItemCommand(object sender, RepeaterCommandEventArgs e)
         {
-            Label userIdLabel = e.Item.FindControl("commentUserIdLabel") as Label;
-            int userId = Convert.ToInt32(userIdLabel.Text);
-            SetSession(userId);
-            Response.Redirect("Profile");
+            if(e.CommandName == "ProfileFromComment")
+            {
+                Label userIdLabel = e.Item.FindControl("commentUserIdLabel") as Label;
+                int userId = Convert.ToInt32(userIdLabel.Text);
+                SetSession(userId);
+                Response.Redirect("Profile");
+            }
+            else if(e.CommandName == "DeleteComment")
+            {
+                Label commentIdLabel = e.Item.FindControl("commentIdLabel") as Label;
+                int commentId = Convert.ToInt32(commentIdLabel.Text);
+                var response = DeleteCommentTransaction.Execute(commentId);
+                Response.Redirect("Home");
+            }          
         }
-
-       
+        protected void CommentRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Label userIdLabel = e.Item.FindControl("commentUserIdLabel") as Label;
+            LinkButton deleteButton = e.Item.FindControl("deleteButton") as LinkButton;
+            int commentUserId = Convert.ToInt32(userIdLabel.Text);
+            int userId = General.UserIdAndLanguageId.UserId;
+            if(userId == commentUserId)
+            {
+                deleteButton.Visible = true;
+            }
+            else
+            {
+                deleteButton.Visible = false;
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace DataAccessLayer.Models
         public TwitterDBContext(DbContextOptions<TwitterDBContext> options)
             : base(options)
         {
+
         }
 
         public virtual DbSet<Chat> Chat { get; set; }
@@ -35,7 +36,7 @@ namespace DataAccessLayer.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-CE13F80;Initial Catalog=TwitterDB;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-CE13F80;Initial Catalog=TwitterDB;Integrated Security=True;MultipleActiveResultSets = True;");
             }
         }
 

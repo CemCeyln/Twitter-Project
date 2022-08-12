@@ -20,10 +20,10 @@
 		  <asp:Repeater runat="server" ID="chatRepeater">
 			  <ItemTemplate>
 				  <div class="friend-drawer friend-drawer--onhover">
-		  <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/robocop.jpg" alt="">
+		  <img class="profile-image" src="File/<%#Eval("chatPersonProfilePicture") %>" alt="">
 		  <div class="text">
-			<h6>Robo Cop</h6>
-			<p class="text-muted">Hey, you're arrested!</p>
+			<h6><%#Eval("chatPersonName") %></h6>
+			<p class="text-muted">This is the last message!</p>
 		  </div>
 		  <span class="time text-muted small">13:21</span>
 		</div>

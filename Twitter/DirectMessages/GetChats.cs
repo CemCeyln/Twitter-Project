@@ -17,6 +17,7 @@ namespace Twitter.DirectMessages
         }
         public static List<GetChatsResponse> Execute(int userId)
         {
+            List<GetChatsResponse> Chats = new List<GetChatsResponse>();
             using (var context = new TwitterDBContext())
             {
                var chats = context.Chat.Include("ChatMessages").Where(x => x.User1 == userId || x.User2 == userId);
@@ -32,9 +33,18 @@ namespace Twitter.DirectMessages
                             var chatPerson = context.User.FirstOrDefault(x => x.UserId == chat.User2);
                             response.chatPersonName = chatPerson.Name;
                             response.chatPersonProfilePicture = chatPerson.Image;
+                            Chats.Add(response);
                         }
-                        
+                        else if(chat.User2 == userId)
+                        {
+                            response.chatPersonId = chat.User1;
+                            var chatPerson = context.User.FirstOrDefault(x => x.UserId == chat.User1);
+                            response.chatPersonName = chatPerson.Name;
+                            response.chatPersonProfilePicture = chatPerson.Image;
+                            Chats.Add(response);
+                        }               
                     }
+                    return Chats;
                 }
             }
             return null;

@@ -6,7 +6,7 @@
     <div class="container">
 
 <div class="row py-5 px-4">
-    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto" style="background:#1A2226; color:whitesmoke; margin-left:57px; height:250px;" >
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto margin-left" style="background:#1A2226; color:whitesmoke; height:250px;" >
 
         <!-- Profile widget -->
         <div class="bg-white shadow rounded">
@@ -47,7 +47,7 @@
         <br />
         <br />
         <div style="align-items: center">
-            <asp:Label runat="server" ID="postNameLabel" style="margin-left:46px; font-size:36px; color:whitesmoke;"></asp:Label>
+            <asp:Label runat="server" CssClass="margin-left" ID="postNameLabel" style=" font-size:36px; color:whitesmoke;"></asp:Label>
         </div>
         
         <div class="row" style="margin-top:30px">
@@ -79,7 +79,7 @@
                                     <h3 class="pull-left" style="margin-left: 10px">New Comment</h3>
                                     <div class="col-lg-6 login-btm login-button">
                                         <asp:TextBox ID="CommentBox"  runat="server" TextMode="MultiLine" class="form-control" Style="background-color: #1A2226; color: whitesmoke; border-color: #0DB8DE; margin-left: 5px"></asp:TextBox>
-                                        <asp:Button ID="CommentButton" runat="server" Text="Submit" class="btn btn-outline-primary" Style="line-height: 0" />
+                                        <asp:Button ID="CommentButton" runat="server" CommandName="Comment" Text="Submit" class="btn btn-outline-primary" Style="line-height: 0" />
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-9 col-lg-10">
@@ -87,17 +87,18 @@
                                     </div>
                                 <asp:Label style="font-size:24px; color:whitesmoke; width:10ch;" ID="commentCountLabel" runat="server"></asp:Label>
 
-                                <asp:Repeater runat="server" ID="commentRepeater" OnItemCommand="CommentRepeaterItemCommand">
+                                <asp:Repeater runat="server" ID="commentRepeater" OnItemCommand="CommentRepeaterItemCommand" OnItemDataBound="CommentRepeaterItemDataBound">
                                     <ItemTemplate>
 
 
                                         <!-- COMMENT START -->
-                                        <div class="media" style="color: whitesmoke">
+                                        <div class="media" style="color: whitesmoke; margin-left:10px">
                                             <a class="pull-left" href="#">
                                                 <asp:Label runat="server" ID="commentUserIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("commentUserId") %>'><</asp:Label>
+                                                 <asp:Label runat="server" ID="commentIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("comment.commentId") %>'><</asp:Label>
                                                 <img class="avatar" style="margin-top: 0px" src='File/<%#Eval("commentProfilePicture") %>' alt=""></a>
                                             <div class="media-body">
-                                                <asp:LinkButton runat="server" CssClass="media-heading commentNameLink"><%#Eval("commentUserName") %></asp:LinkButton>
+                                                <asp:LinkButton runat="server" CommandName="ProfileFromComment" CssClass="media-heading commentNameLink"><%#Eval("commentUserName") %></asp:LinkButton>
                                                 <br />
                                                 <br />
                                                 <div>
@@ -111,6 +112,7 @@
                                                     <li id="commentLikeCount<%#Eval("comment.commentId")%>"><%#Eval("comment.likeCount")%> likes</li>
                                                     <br />
                                                     <li><div class="heart" id="heart-comment<%#Eval("comment.commentId") %>" onclick="commentLikes('<%#Eval("comment.commentId") %>')"></li>
+                                                    <li><asp:LinkButton runat="server" CommandName="DeleteComment" style="color:#0DB8DE" ID="deleteButton" Text="Delete"></asp:LinkButton></li>
                                                 </ul>
                                             </div>
                                         </div>

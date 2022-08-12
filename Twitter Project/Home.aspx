@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-lg-6 col-md-8 login-box" style="color: whitesmoke; margin-top: 3px !important; box-shadow: none;">
                             <div class="heart" id="heart<%#Eval("post.postId") %>" onclick="likes('<%#Eval("post.postId") %>')">
-                                <p id="Likecount<%#Eval("post.postId")%>"><%#Eval("post.likes")%> likes</p>
+                                <p id="Likecount<%#Eval("post.postId")%>"><%#Eval("post.likes")%> likes</p>                               
                             </div>
                         </div>
                         <div class="row">
@@ -39,17 +39,18 @@
                                     </div>
                                 <asp:Label style="font-size:24px; color:whitesmoke; width:10ch;" ID="commentCountLabel" runat="server"></asp:Label>
 
-                                <asp:Repeater runat="server" ID="commentRepeater" OnItemCommand="CommentRepeaterItemCommand">
+                                <asp:Repeater runat="server" ID="commentRepeater" OnItemCommand="CommentRepeaterItemCommand" OnItemDataBound="CommentRepeaterItemDataBound">
                                     <ItemTemplate>
 
 
                                         <!-- COMMENT START -->
-                                        <div class="media" style="color: whitesmoke">
+                                        <div class="media" style="color: whitesmoke; margin-left:10px">
                                             <a class="pull-left" href="#">
                                                 <asp:Label runat="server" ID="commentUserIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("commentUserId") %>'><</asp:Label>
+                                                <asp:Label runat="server" ID="commentIdLabel" class="form-control-label" Style="visibility:hidden" Text='<%#Eval("comment.commentId") %>'><</asp:Label>
                                                 <img class="avatar" style="margin-top: 0px" src='File/<%#Eval("commentProfilePicture") %>' alt=""></a>
                                             <div class="media-body">
-                                                <asp:LinkButton runat="server" CssClass="media-heading commentNameLink"><%#Eval("commentUserName") %></asp:LinkButton>
+                                                <asp:LinkButton runat="server" CommandName="ProfileFromComment" CssClass="media-heading commentNameLink"><%#Eval("commentUserName") %></asp:LinkButton>
                                                 <br />
                                                 <br />
                                                 <br />
@@ -60,10 +61,9 @@
                                                     <li><i class="fa fa-calendar"></i><%#Eval("comment.Date").ToString()%></li>
                                                 </ul>
                                                 <ul class="list-unstyled list-inline media-detail pull-right">
-                                                    <li id="commentLikeCount<%#Eval("comment.commentId")%>"><%#Eval("comment.likeCount")%> likes</li>
                                                     <br />
-                                                    <li><div class="heart" id="heart-comment<%#Eval("comment.commentId") %>" onclick="commentLikes('<%#Eval("comment.commentId") %>')"></li>
-                                                    
+                                                    <li><div class="heart" id="heart-comment<%#Eval("comment.commentId") %>" onclick="commentLikes('<%#Eval("comment.commentId") %>')"><p id="commentLikeCount<%#Eval("comment.commentId")%>"><%#Eval("comment.likeCount")%> likes </p></div></li>
+                                                    <li><asp:LinkButton runat="server" style="color:#0DB8DE" CommandName="DeleteComment" ID="deleteButton" Text="Delete"></asp:LinkButton></li>
                                                 </ul>
                                             </div>
                                         </div>

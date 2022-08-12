@@ -78,7 +78,7 @@ namespace Twitter_Project
                     request.postId = Int32.Parse(postId);
                     request.commentBody = commentBox.Text;
                     AddCommentTransaction.Execute(request);
-                    Response.Redirect("Home");
+                    Response.Redirect("Profile");
                 }
             }
             else if (e.CommandName == "Profile")
@@ -108,12 +108,37 @@ namespace Twitter_Project
                 }
             }
         }
-        protected void CommentRepeaterItemCommand(object sender, RepeaterCommandEventArgs e)
+        protected void CommentRepeaterItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             Label userIdLabel = e.Item.FindControl("commentUserIdLabel") as Label;
-            int userId = Convert.ToInt32(userIdLabel.Text);
-            SetSession(userId);
-            Response.Redirect("Profile");
+            LinkButton deleteButton = e.Item.FindControl("deleteButton") as LinkButton;
+            int commentUserId = Convert.ToInt32(userIdLabel.Text);
+            int userId = General.UserIdAndLanguageId.UserId;
+            if (userId == commentUserId)
+            {
+                deleteButton.Visible = true;
+            }
+            else
+            {
+                deleteButton.Visible = false;
+            }
+        }
+        protected void CommentRepeaterItemCommand(object sender, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "ProfileFromComment")
+            {
+                Label userIdLabel = e.Item.FindControl("commentUserIdLabel") as Label;
+                int userId = Convert.ToInt32(userIdLabel.Text);
+                SetSession(userId);
+                Response.Redirect("Profile");
+            }
+            else if (e.CommandName == "DeleteComment")
+            {
+                Label commentIdLabel = e.Item.FindControl("commentIdLabel") as Label;
+                int commentId = Convert.ToInt32(commentIdLabel.Text);
+                var response = DeleteCommentTransaction.Execute(commentId);
+                Response.Redirect("Profile");
+            }
         }
         protected void FollowUnfollow(object sender, EventArgs e)
         {

@@ -14,7 +14,6 @@ namespace Twitter.UserOperations
         {
 
         }
-
         public static GetUserInfoMessages Execute(int userId)
         {
             using (var context = new TwitterDBContext())
